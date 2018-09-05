@@ -31,9 +31,40 @@ app.get("/:name",function(req,res){
           console.log(err);
       } 
       else{
+          if(!user.length){
+              User.create({
+                  name:name,
+                  data:""
+              },function(err,user1){
+                  if(err){
+                      console.log(err);
+                  }
+                  else{
+                      console.log("New user added");
+                      console.log(user1)
+                  }
+              });
+          }
           res.render("home",{data:user.data})
       }
    });
+});
+
+app.post("/:name",function(req,res){
+   var name=req.params.name;
+   var data=req.body.data;
+   
+   User.updata({name:name},
+   {
+       $set:{data:data}
+   },function(err,user){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("Updated");
+        }
+   })
 });
 
 app.listen(process.env.PORT,process.env.IP,function(){
