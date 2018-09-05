@@ -44,8 +44,11 @@ app.get("/:name",function(req,res){
                       console.log(user1)
                   }
               });
+              console.log(user[0].data);
+          res.render("home",{data:user[0].data});
           }
-          res.render("home",{data:user.data})
+          else{
+          res.render("home",{data:user[0].data});}
       }
    });
 });
@@ -54,7 +57,7 @@ app.post("/:name",function(req,res){
    var name=req.params.name;
    var data=req.body.data;
    
-   User.updata({name:name},
+   User.update({name:name},
    {
        $set:{data:data}
    },function(err,user){
@@ -65,6 +68,7 @@ app.post("/:name",function(req,res){
             console.log("Updated");
         }
    })
+   res.redirect(name);
 });
 
 app.listen(process.env.PORT,process.env.IP,function(){
