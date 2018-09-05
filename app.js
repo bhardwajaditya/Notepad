@@ -26,6 +26,7 @@ app.use(function(req, res, next) {
 
 app.get("/:name",function(req,res){
    var name=req.params.name;
+   var data;
    User.find({name:name},function(err,user){
       if(err){
           console.log(err);
@@ -41,14 +42,14 @@ app.get("/:name",function(req,res){
                   }
                   else{
                       console.log("New user added");
-                      console.log(user1)
+                      console.log(user1);
+                      res.render("home",{data:user1.data,name:user1.name});
                   }
               });
-              console.log(user[0].data);
-          res.render("home",{data:user[0].data});
+          
           }
           else{
-          res.render("home",{data:user[0].data});}
+          res.render("home",{data:user[0].data,name:user[0].name});}
       }
    });
 });
