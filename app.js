@@ -24,7 +24,17 @@ app.use(function(req, res, next) {
 });
 
 
-
+app.get("/:name",function(req,res){
+   var name=req.params.name;
+   User.find({name:name},function(err,user){
+      if(err){
+          console.log(err);
+      } 
+      else{
+          res.render("home",{data:user.data})
+      }
+   });
+});
 
 app.listen(process.env.PORT,process.env.IP,function(){
     console.log("Server started!!");
