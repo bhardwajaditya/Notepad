@@ -5,7 +5,7 @@ var mongoose = require("mongoose");
 
 mongoose.connect("mongodb://localhost/notepad");
 
-
+app.use(express.static("public"));
 var UserSchema =new mongoose.Schema({
    name: String,
    data : String
