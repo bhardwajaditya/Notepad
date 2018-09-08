@@ -1,4 +1,5 @@
 var monospace = document.querySelector("#mono");
+var notepad = document.querySelector(".container");
 monospace.addEventListener("click",function(){
-    document.body.classList.toggle("b1");
+    notepad.classList.toggle("b1");
 });
