@@ -1,7 +1,6 @@
 <% include partials/header %>
 <div class="container">
   <h4>Welcome <%=name%></h4>
-  <a id="mono" class="btn btn-primary">Monospace</a>
 <form method="POST" action="#">
     <div class="form-group">
     <textarea class="form-control" id="exampleFormControlTextarea1" name="data" rows="10"><%= data %></textarea>
@@ -9,3 +8,34 @@
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
 </div>
+<script>
+  function httpPostAsync(theUrl,data)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onload = function(){
+      console.log('done');
+    }
+    xmlHttp.open("POST", theUrl, true); // true for asynchronous 
+    xmlHttp.send(data);
+}
+var form = document.querySelector('form');
+form.addEventListener('submit', function(event){
+    event.preventDefault();
+    httpPostAsync('#',null);
+});
+var saveTimeout = null;
+var textarea = document.querySelector('.form-control');
+textarea.addEventListener('keyup', function(event){
+  if (saveTimeout) {
+    clearTimeout(saveTimeout);
+    saveTimeout = null;
+  }
+  saveTimeout = setTimeout(httpPostAsync('#'),10000);
+});
+textarea.addEventListener('keydown',function(event){
+  if (saveTimeout) {
+    clearTimeout(saveTimeout);
+    saveTimeout = null;
+  }
+});
+</script>

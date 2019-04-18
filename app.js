@@ -65,9 +65,6 @@ app.post("/:name",function(req,res){
         if(err){
             console.log(err);
         }
-        else{
-            console.log("Updated");
-        }
    })
    res.redirect(name);
 });
